@@ -104,7 +104,7 @@
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.lay_MainLayout.Size = new System.Drawing.Size(980, 770);
+            this.lay_MainLayout.Size = new System.Drawing.Size(980, 787);
             this.lay_MainLayout.TabIndex = 11;
             this.lay_MainLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.lyo_MainTableLayout_Paint);
             // 
@@ -112,7 +112,7 @@
             // 
             this.pnl_MainControl.Controls.Add(this.box_Controls);
             this.pnl_MainControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_MainControl.Location = new System.Drawing.Point(3, 702);
+            this.pnl_MainControl.Location = new System.Drawing.Point(3, 719);
             this.pnl_MainControl.Name = "pnl_MainControl";
             this.pnl_MainControl.Size = new System.Drawing.Size(234, 65);
             this.pnl_MainControl.TabIndex = 1;
@@ -169,14 +169,14 @@
             this.pnl_PersonalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PersonalInfo.Location = new System.Drawing.Point(3, 3);
             this.pnl_PersonalInfo.Name = "pnl_PersonalInfo";
-            this.pnl_PersonalInfo.Size = new System.Drawing.Size(234, 693);
+            this.pnl_PersonalInfo.Size = new System.Drawing.Size(234, 710);
             this.pnl_PersonalInfo.TabIndex = 0;
             // 
             // Information
             // 
             this.Information.Location = new System.Drawing.Point(4, 431);
             this.Information.Name = "Information";
-            this.Information.Size = new System.Drawing.Size(225, 308);
+            this.Information.Size = new System.Drawing.Size(225, 270);
             this.Information.TabIndex = 20;
             this.Information.TabStop = false;
             this.Information.Text = "Information";
@@ -393,7 +393,7 @@
             // 
             this.pnl_PictureCtrl.Controls.Add(this.box_TestControls);
             this.pnl_PictureCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_PictureCtrl.Location = new System.Drawing.Point(243, 702);
+            this.pnl_PictureCtrl.Location = new System.Drawing.Point(243, 719);
             this.pnl_PictureCtrl.Name = "pnl_PictureCtrl";
             this.pnl_PictureCtrl.Size = new System.Drawing.Size(734, 65);
             this.pnl_PictureCtrl.TabIndex = 2;
@@ -506,7 +506,7 @@
             this.pnl_PictureArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PictureArea.Location = new System.Drawing.Point(243, 3);
             this.pnl_PictureArea.Name = "pnl_PictureArea";
-            this.pnl_PictureArea.Size = new System.Drawing.Size(734, 693);
+            this.pnl_PictureArea.Size = new System.Drawing.Size(734, 710);
             this.pnl_PictureArea.TabIndex = 3;
             // 
             // box_Image
@@ -514,7 +514,7 @@
             this.box_Image.Controls.Add(this.box_PictureArea);
             this.box_Image.Location = new System.Drawing.Point(5, 9);
             this.box_Image.Name = "box_Image";
-            this.box_Image.Size = new System.Drawing.Size(724, 730);
+            this.box_Image.Size = new System.Drawing.Size(724, 692);
             this.box_Image.TabIndex = 21;
             this.box_Image.TabStop = false;
             this.box_Image.Text = "Image";
@@ -525,7 +525,7 @@
             this.box_PictureArea.InitialImage = null;
             this.box_PictureArea.Location = new System.Drawing.Point(12, 19);
             this.box_PictureArea.Name = "box_PictureArea";
-            this.box_PictureArea.Size = new System.Drawing.Size(700, 700);
+            this.box_PictureArea.Size = new System.Drawing.Size(700, 662);
             this.box_PictureArea.TabIndex = 0;
             this.box_PictureArea.TabStop = false;
             this.box_PictureArea.Visible = false;
@@ -538,7 +538,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 770);
+            this.ClientSize = new System.Drawing.Size(980, 787);
             this.Controls.Add(this.lay_MainLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
