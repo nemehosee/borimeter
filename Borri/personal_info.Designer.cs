@@ -422,7 +422,7 @@
             this.btn_GotIt.Name = "btn_GotIt";
             this.btn_GotIt.Size = new System.Drawing.Size(75, 23);
             this.btn_GotIt.TabIndex = 17;
-            this.btn_GotIt.Text = "Got It";
+            this.btn_GotIt.Text = "Stop";
             this.btn_GotIt.UseVisualStyleBackColor = true;
             this.btn_GotIt.Click += new System.EventHandler(this.btn_GotIt_Click);
             // 
