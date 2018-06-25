@@ -1,0 +1,8 @@
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\bin\Release\Borri.exe.config
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\bin\Release\Borri.exe
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\bin\Release\Borri.pdb
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\obj\Release\Borri.wnd_MainWindow.resources
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\obj\Release\Borri.Properties.Resources.resources
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\obj\Release\Borri.csproj.GenerateResource.Cache
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\obj\Release\Borri.exe
+d:\users\F10553C\Documents\Visual Studio 2013\Borri\Borri\obj\Release\Borri.pdb
