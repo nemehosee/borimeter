@@ -17,3 +17,13 @@ D:\users\F10553C\Documents\Visual Studio 2017\Borimeter\Borri\obj\Debug\Borri.cs
 D:\users\F10553C\Documents\Visual Studio 2017\Borimeter\Borri\obj\Debug\Borri.csproj.CoreCompileInputs.cache
 D:\users\F10553C\Documents\Visual Studio 2017\Borimeter\Borri\obj\Debug\Borimeter.exe
 D:\users\F10553C\Documents\Visual Studio 2017\Borimeter\Borri\obj\Debug\Borimeter.pdb
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\bin\Debug\Borimeter.exe.config
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\bin\Debug\Borimeter.exe
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\bin\Debug\Borimeter.pdb
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borri.csprojAssemblyReference.cache
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borimeter.wnd_MainWindow.resources
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borimeter.Properties.Resources.resources
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borri.csproj.GenerateResource.cache
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borri.csproj.CoreCompileInputs.cache
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borimeter.exe
+D:\users\F10553C\Documents\Git Repo\borimeter\Borri\obj\Debug\Borimeter.pdb
