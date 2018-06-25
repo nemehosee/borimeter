@@ -197,9 +197,9 @@
             this.chk_Progress.AutoSize = true;
             this.chk_Progress.Location = new System.Drawing.Point(5, 19);
             this.chk_Progress.Name = "chk_Progress";
-            this.chk_Progress.Size = new System.Drawing.Size(177, 17);
+            this.chk_Progress.Size = new System.Drawing.Size(96, 17);
             this.chk_Progress.TabIndex = 10;
-            this.chk_Progress.Text = "Show progress through the trials";
+            this.chk_Progress.Text = "Show progress";
             this.chk_Progress.UseVisualStyleBackColor = true;
             this.chk_Progress.CheckedChanged += new System.EventHandler(this.chk_Progress_CheckedChanged);
             // 
