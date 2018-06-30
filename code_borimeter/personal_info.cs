@@ -19,6 +19,9 @@ namespace Borimeter
         // Sample time when start trial
         int StartTime = 0;
 
+        // Path to user file
+        string FilePath = "";
+
         public wnd_MainWindow()
         {
             InitializeComponent();
@@ -50,33 +53,35 @@ namespace Borimeter
             }
         }
 
-        // Write data to .csv file
-        private void SaveToCsv()
+        // Function to calculate user ID based on personal information
+        private string CalculateUserId()
         {
-            var csv = new StringBuilder();
+            string UserId = "TestUserId";
 
-            var c0 = Student.Id.ToString();
-            var c1 = Student.Name.ToString();
-            var c2 = Student.Surname.ToString();
-            var c3 = Student.Gender.ToString();
-            var c4 = Student.Age.ToString();
-            var c5 = Student.Uni.ToString();
-            var c6 = Student.Spec.ToString();
-            var c7 = Student.Deg.ToString();
-            var c8 = Student.Year.ToString();
-
-            var TestData = "";
-
-            // Combine test results into one string
-            for (int i = 0; i < Const.MaxNrSet; i++)
+            return UserId;
+        }
+        
+        // Create user file and write personal information into it
+        private void CreateUserFile(string UserId)
+        {
+            // Calculate user file path
+            FilePath = @"Results\" + UserId + ".res";
+            // If user file already exists
+            using (StreamWriter WriteToFile = File.CreateText(FilePath))
             {
-                TestData += "," + Test.TrialName[i].ToString() + "," + Test.TrialType[i].ToString() + "," + Test.TrialStep[i].ToString() + "," + Test.TrialTime[i].ToString();
+                WriteToFile.WriteLine(UserId);
+                WriteToFile.WriteLine(Student.Name.ToString());
+                WriteToFile.WriteLine(Student.Surname.ToString());
+                WriteToFile.WriteLine(Student.Gender.ToString());
+                WriteToFile.WriteLine(Student.Age.ToString());
+                WriteToFile.WriteLine(Student.Uni.ToString());
+                WriteToFile.WriteLine(Student.Spec.ToString());
+                WriteToFile.WriteLine(Student.Deg.ToString());
+                WriteToFile.WriteLine(Student.Year.ToString());
             }
-            var newLine = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",c0, c1, c2, c3, c4, c5, c6, c7, c8, TestData);
-            csv.AppendLine(newLine);
-            File.AppendAllText("Data.csv", csv.ToString());
         }
 
+        // Submit button action
         private void btn_Submit_Click(object sender, EventArgs e)
         {
             bool b_InputOk  = true;
@@ -95,28 +100,26 @@ namespace Borimeter
             {
                 s_Gender = "T";
             }
-
-
-            b_InputOk = Student.GetInfo(txt_Name.Text,
-                                        txt_Surname.Text,
-                                        s_Gender,
-                                        (int)num_Age.Value,
-                                        txt_University.Text,
-                                        txt_Specialization.Text,
-                                        cmb_Degree.Text,
-                                        (int)num_Year.Value);
-
-            // TODO: [Remove negation] If input fields were completed
+            // Check if all input fields were completed
+            b_InputOk = Student.GetInfo(txt_Name.Text, txt_Surname.Text, s_Gender, (int)num_Age.Value, txt_University.Text, txt_Specialization.Text, cmb_Degree.Text, (int)num_Year.Value);
+            // If input fields were completed
             if (b_InputOk)
             {
+                // Grey-out User information fields
                 DisableInput();
+                // Calculate unique user ID
+                string UserId = CalculateUserId();
+                // Create user file
+                CreateUserFile(UserId);
             }
+            // If input fields were not completed
             else
             {
-                // Show error message in a pop up window
+                // TODO: Show error message in a pop up window
             }
         }
 
+        // Start button action
         private void btn_Start_Click(object sender, EventArgs e)
         {
             // Start timer and sample start time
@@ -143,6 +146,7 @@ namespace Borimeter
 
         }
 
+        // Next Picture button action
         private void btn_NextPicture_Click(object sender, EventArgs e)
         {
             if (NrPic < Const.MaxNrPic)
@@ -161,6 +165,7 @@ namespace Borimeter
             }
         }
 
+        // Next Trial button action
         private void btn_NextTrial_Click(object sender, EventArgs e)
         {
             // If the last set is reached
@@ -202,7 +207,8 @@ namespace Borimeter
 
         }
 
-        private void btn_GotIt_Click(object sender, EventArgs e)
+        // Stop button action
+        private void btn_Stop_Click(object sender, EventArgs e)
         {
             // Stop timer and measure elapsed time
             TestTime.Stop();
@@ -222,14 +228,20 @@ namespace Borimeter
             btn_NextPicture.Enabled = false;
         }
 
-        private void btn_Complete_Click(object sender, EventArgs e)
+        // Submit Solution button action
+        private void btn_SubmitSolution_Click(object sender, EventArgs e)
         {
-            // Trial Category or Name were completed
+            // If solution fields were filled in
             if (txt_Category.Text != "" || txt_Description.Text != "")
             {
                 // Save trial Name and Category
                 Test.TrialType[NrSet-1] = txt_Category.Text;
                 Test.TrialName[NrSet-1] = txt_Description.Text;
+                // Write solution to user file
+                using (StreamWriter WriteToFile = File.AppendText(FilePath))
+                {
+                    WriteToFile.WriteLine(NrSet.ToString() + "/" + NrPic.ToString() + ": " + txt_Category.Text + ", " + txt_Description.Text);
+                }
                 // Clear input fields
                 txt_Category.Clear();
                 txt_Description.Clear();
@@ -250,8 +262,6 @@ namespace Borimeter
         // Finish button action
         private void btn_Finish_Click(object sender, EventArgs e)
         {
-            // Save test information to Data.csv
-            SaveToCsv();
             // Exit application
             Application.Exit();
         }

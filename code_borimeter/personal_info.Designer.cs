@@ -424,7 +424,7 @@
             this.btn_GotIt.TabIndex = 17;
             this.btn_GotIt.Text = "Stop";
             this.btn_GotIt.UseVisualStyleBackColor = true;
-            this.btn_GotIt.Click += new System.EventHandler(this.btn_GotIt_Click);
+            this.btn_GotIt.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // btn_Complete
             // 
@@ -435,7 +435,7 @@
             this.btn_Complete.TabIndex = 18;
             this.btn_Complete.Text = "Submit";
             this.btn_Complete.UseVisualStyleBackColor = true;
-            this.btn_Complete.Click += new System.EventHandler(this.btn_Complete_Click);
+            this.btn_Complete.Click += new System.EventHandler(this.btn_SubmitSolution_Click);
             // 
             // btn_NextPicture
             // 
