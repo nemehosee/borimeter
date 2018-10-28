@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -13,14 +14,18 @@ namespace Borimeter
         c_Time    Time    = new c_Time();
 
         // Current number of step/picture and trial/set
-        int NrPic = 0;
-        int NrSet = 0;
+        int IdxImg = 0;
+        int IdxSet = 0;
 
         // Sample time when start trial
         int StartTime = 0;
 
         // Path to user file
         string FilePath = "";
+
+        // Enable countdown
+        Boolean EnableTimeOut = false;
+        int TimeOutCounter = 10;
 
         public wnd_MainWindow()
         {
@@ -53,22 +58,26 @@ namespace Borimeter
             }
         }
 
-        // Function to calculate user ID based on personal information
-        private string CalculateUserId()
-        {
-            string UserId = "TestUserId";
-
-            return UserId;
-        }
-        
         // Create user file and write personal information into it
-        private void CreateUserFile(string UserId)
+        private void CreateUserFile()
         {
+            // Unique User ID
+            string UserId;
+            // Concatenate User info and date
+            string UserData = Student.Name.ToString() + Student.Surname.ToString() + DateTime.Now.ToString();
+            // Unique file name
+            string FileName;
+            
+            // Generate unique user ID
+            UserId = Math.Abs(UserData.GetHashCode()).ToString();
+            // Concatenate User Name and Unique ID to generate file name
+            FileName = Student.Name.ToString() + "_" + Student.Surname.ToString() + "_" + UserId;
             // Calculate user file path
-            FilePath = @"Results\" + UserId + ".res";
+            FilePath = @"Results\" + FileName + ".res";
             // If user file already exists
             using (StreamWriter WriteToFile = File.CreateText(FilePath))
             {
+                WriteToFile.WriteLine(DateTime.Now.ToString());
                 WriteToFile.WriteLine(UserId);
                 WriteToFile.WriteLine(Student.Name.ToString());
                 WriteToFile.WriteLine(Student.Surname.ToString());
@@ -79,6 +88,35 @@ namespace Borimeter
                 WriteToFile.WriteLine(Student.Deg.ToString());
                 WriteToFile.WriteLine(Student.Year.ToString());
             }
+        }
+
+        // Display a specific picture from a set
+        private void DisplayImage(int Set, int Pic)
+        {
+            // Calculate path to current picture
+            string s_Picture = @".\Pictures\" + IdxSet.ToString() + @"\" + IdxImg.ToString() + ".jpg";
+
+            // Set image display mode based on image size
+            using (Image Picture = Image.FromFile(s_Picture))
+            {
+                // If the image is smaller than the display area
+                if (Picture.Width <= 700 && Picture.Height <= 662)
+                {
+                    // Set image size mode to center
+                    box_PictureArea.SizeMode = PictureBoxSizeMode.CenterImage;
+                }
+                else
+                {
+                    // Set image size mode to stretch
+                    box_PictureArea.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+            }
+            // Load picture into picture area
+            box_PictureArea.Load(s_Picture);
+            // Make picture area visible
+            box_PictureArea.Visible = true;
+            // Enable time-out
+            EnableTimeOut = true;
         }
 
         // Submit button action
@@ -107,15 +145,13 @@ namespace Borimeter
             {
                 // Grey-out User information fields
                 DisableInput();
-                // Calculate unique user ID
-                string UserId = CalculateUserId();
                 // Create user file
-                CreateUserFile(UserId);
+                CreateUserFile();
             }
             // If input fields were not completed
             else
             {
-                // TODO: Show error message in a pop up window
+                // TODO: Show warning in the Information area.
             }
         }
 
@@ -125,20 +161,15 @@ namespace Borimeter
             // Start timer and sample start time
             TestTime.Start();
             StartTime = Time.GetTrialTime();
-            // Enable picture box
-            box_PictureArea.Visible = true;
             // Enable test controls
             box_TestControls.Enabled = true;
             // Disable Start button
             btn_Start.Enabled = false;
-            // Set image size mode to stretch
-            box_PictureArea.SizeMode = PictureBoxSizeMode.StretchImage;
             // Initialize indexes to first picture from first set
-            NrPic = 1;
-            NrSet = 1;
-            // Calculate path to current picture and display it
-            string s_Picture = @".\Pictures\" + NrSet.ToString() + @"\" + NrPic.ToString() + ".jpg";
-            box_PictureArea.Load(s_Picture);
+            IdxImg = 1;
+            IdxSet = 1;
+            // Display current picture
+            DisplayImage(IdxSet, IdxImg);
         }
 
         private void txt_Category_TextChanged(object sender, EventArgs e)
@@ -149,19 +180,24 @@ namespace Borimeter
         // Next Picture button action
         private void btn_NextPicture_Click(object sender, EventArgs e)
         {
-            if (NrPic < Const.MaxNrPic)
+            if (IdxImg < Const.PicsPerSet)
             {
                 // Switch to the next picture in current set
-                NrPic++;
-                // Calculate path to current picture and display it
-                string s_Picture = @".\Pictures\"+NrSet.ToString()+ @"\"+NrPic.ToString()+".jpg";
-                box_PictureArea.Load(s_Picture);
+                IdxImg++;
+                // Display current picture
+                DisplayImage(IdxSet, IdxImg);
             }
             // If the last picture from current set is reached
-            if (NrPic == Const.MaxNrPic)
+            if (IdxImg == Const.PicsPerSet)
             {
-                // Disable Next Picture Button
+                // Disable Next Picture and Got It buttons
                 btn_NextPicture.Enabled = false;
+                btn_GotIt.Enabled = false;
+                // Enable Submit button
+                btn_Complete.Enabled = true;
+                // Enable Category and Name input fields
+                txt_Category.Enabled = true;
+                txt_Description.Enabled = true;
             }
         }
 
@@ -169,7 +205,7 @@ namespace Borimeter
         private void btn_NextTrial_Click(object sender, EventArgs e)
         {
             // If the last set is reached
-            if (NrSet == Const.MaxNrSet)
+            if (IdxSet == Const.NrOfSets)
             {
                 // Disable Test Control box
                 box_TestControls.Enabled = false;
@@ -178,7 +214,7 @@ namespace Borimeter
 
             }
             // There are more sets to show
-            else if (NrSet < Const.MaxNrSet)
+            else if (IdxSet < Const.NrOfSets)
             {
                 // Enable timer and sample time
                 TestTime.Start();
@@ -192,13 +228,10 @@ namespace Borimeter
                 txt_Description.Enabled = false;
                 txt_Category.Enabled = false;
                 // Switch to 1st picture in the next set
-                NrSet++;
-                NrPic = 1;
-                // Calculate path to current picture and display it
-                string s_Picture = @".\Pictures\" + NrSet.ToString() + @"\" + NrPic.ToString() + ".jpg";
-                box_PictureArea.Load(s_Picture);
-                // Enable picture box
-                box_PictureArea.Visible = true;
+                IdxSet++;
+                IdxImg = 1;
+                // Display current picture
+                DisplayImage(IdxSet, IdxImg);
             }
         }
 
@@ -212,12 +245,10 @@ namespace Borimeter
         {
             // Stop timer and measure elapsed time
             TestTime.Stop();
-            Test.TrialTime[NrSet-1] = Time.GetTrialTime() - StartTime;
-            Test.TrialStep[NrSet-1] = NrPic;
+            Test.TrialTime[IdxSet-1] = Time.GetTrialTime() - StartTime;
+            Test.TrialStep[IdxSet-1] = IdxImg;
             // Reset trial time
             Time.Trial = 0;
-            // Hide picture area
-            box_PictureArea.Visible = false;
             // Enable Category and Name input fields
             txt_Category.Enabled = true;
             txt_Description.Enabled = true;
@@ -232,16 +263,13 @@ namespace Borimeter
         private void btn_SubmitSolution_Click(object sender, EventArgs e)
         {
             // If solution fields were filled in
-            if (txt_Category.Text != "" || txt_Description.Text != "")
+            if (txt_Category.Text != "" && txt_Description.Text != "")
             {
                 // Save trial Name and Category
-                Test.TrialType[NrSet-1] = txt_Category.Text;
-                Test.TrialName[NrSet-1] = txt_Description.Text;
-                // Write solution to user file
-                using (StreamWriter WriteToFile = File.AppendText(FilePath))
-                {
-                    WriteToFile.WriteLine(NrSet.ToString() + "/" + NrPic.ToString() + ": " + txt_Category.Text + ", " + txt_Description.Text);
-                }
+                Test.TrialType[IdxSet-1] = txt_Category.Text;
+                Test.TrialName[IdxSet-1] = txt_Description.Text;
+                // Write trial results to file
+                WriteTrialResultToFile();
                 // Clear input fields
                 txt_Category.Clear();
                 txt_Description.Clear();
@@ -255,7 +283,27 @@ namespace Borimeter
             }
             else
             {
-                // Do nothing
+                // TODO: Show warning in Information area
+            }
+        }
+
+        // Write current trial results
+        private void WriteTrialResultToFile()
+        {
+            int Idx = IdxSet - 1;
+            int Sec = Test.TrialTime[Idx] / 10;
+            int MSec = Test.TrialTime[Idx] % 10;
+
+            // Write solution to user file
+            using (StreamWriter WriteToFile = File.AppendText(FilePath))
+            {
+                WriteToFile.WriteLine(
+                    IdxSet.ToString() + ": " +
+                    Test.TrialStep[Idx].ToString() + ", " +
+                    Sec.ToString() + "." + MSec.ToString() + "s, " +
+                    Test.TrialType[Idx] + ", " +
+                    Test.TrialName[Idx]
+                );
             }
         }
 
@@ -271,6 +319,22 @@ namespace Borimeter
         {
             // Increment time unit (sec)
             Time.IncTime();
+
+            // If picture display timeout is enabled
+            if (EnableTimeOut)
+            {
+                // If timeout has reached
+                if (TimeOutCounter == 0)
+                {
+                    // Disable time-out
+                    EnableTimeOut = false;
+                    // Reset time-out counter
+                    TimeOutCounter = 10;
+                    // Hide picture area
+                    box_PictureArea.Visible = false;
+                }
+                else TimeOutCounter--;
+            }
         }
     }
 
@@ -367,21 +431,21 @@ namespace Borimeter
     public class Const
     {
         // Maximum number of pictures per set
-        public const int MaxNrPic = 5;
+        public const int PicsPerSet = 5;
         // Maximum number of sets
         // TODO: Correct value to 20 on final version
-        public const int MaxNrSet = 3;
+        public const int NrOfSets = 3;
     }
 
     // Test trial information
     public class c_Test
     {
         // Measure time and step count for each trial
-        public int[] TrialTime = new int[Const.MaxNrSet];
-        public int[] TrialStep = new int[Const.MaxNrSet];
+        public int[] TrialTime = new int[Const.NrOfSets];
+        public int[] TrialStep = new int[Const.NrOfSets];
         // Store name and Category for each trial
-        public string[] TrialName = new string[Const.MaxNrSet];
-        public string[] TrialType = new string[Const.MaxNrSet];
+        public string[] TrialName = new string[Const.NrOfSets];
+        public string[] TrialType = new string[Const.NrOfSets];
         // Total amount of time needed to complete the whole test
         public int TotalTime = 0;
     }
