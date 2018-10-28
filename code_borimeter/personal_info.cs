@@ -243,12 +243,6 @@ namespace Borimeter
         // Stop button action
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            // Stop timer and measure elapsed time
-            TestTime.Stop();
-            Test.TrialTime[IdxSet-1] = Time.GetTrialTime() - StartTime;
-            Test.TrialStep[IdxSet-1] = IdxImg;
-            // Reset trial time
-            Time.Trial = 0;
             // Enable Category and Name input fields
             txt_Category.Enabled = true;
             txt_Description.Enabled = true;
@@ -265,6 +259,12 @@ namespace Borimeter
             // If solution fields were filled in
             if (txt_Category.Text != "" && txt_Description.Text != "")
             {
+                // Stop timer and measure elapsed time
+                TestTime.Stop();
+                Test.TrialTime[IdxSet - 1] = Time.GetTrialTime() - StartTime;
+                Test.TrialStep[IdxSet - 1] = IdxImg;
+                // Reset trial time
+                Time.Trial = 0;
                 // Save trial Name and Category
                 Test.TrialType[IdxSet-1] = txt_Category.Text;
                 Test.TrialName[IdxSet-1] = txt_Description.Text;
