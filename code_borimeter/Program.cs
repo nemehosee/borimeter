@@ -16,7 +16,7 @@ namespace Borimeter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new wnd_MainWindow());
+            Application.Run(new MainWindow());
         }
     }
 }

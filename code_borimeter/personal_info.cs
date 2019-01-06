@@ -6,35 +6,32 @@ using System.Windows.Forms;
 
 namespace Borimeter
 {
-    public partial class wnd_MainWindow : Form
+    public partial class MainWindow : Form
     {
         // Personal and Test information
-        c_Student Student = new c_Student();
-        c_Test    Test    = new c_Test();
-        c_Time    Time    = new c_Time();
+        TestSubjectClass TestSubject = new TestSubjectClass();
+        TestDataClass    TestData    = new TestDataClass();
+        TimeClass        Time        = new TimeClass();
 
         // Current number of step/picture and trial/set
         int IdxImg = 0;
         int IdxSet = 0;
 
-        // Sample time when start trial
-        int StartTime = 0;
+        // Number of pictures per set
+        int Const_NrPicPerSet = 20;
 
         // Path to user file
         string FilePath = "";
+        string[] TestSetPathList;
 
-        // Enable countdown
-        Boolean EnableTimeOut = false;
-        int TimeOutCounter = Const.PicTimeOut;
-
-        public wnd_MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void lyo_MainTableLayout_Paint(object sender, PaintEventArgs e)
+        private void MainTableLayout_Paint(object sender, PaintEventArgs e)
         {
-            InfoTextBox.AppendText("");
+
         }
 
         // Disable input fields after Submit button was clicked
@@ -44,53 +41,51 @@ namespace Borimeter
             btn_Start.Enabled = true;
             // Disable Submit button
             btn_Submit.Enabled = false;
-            // Disable Personal Information group box
-            box_PersonalInfo.Enabled = false;
+            // Disable Personal Information, Studies and Test Set group box
+            PersonalInfo.Enabled = false;
+            Studies.Enabled = false;
+            TestSet.Enabled = false;
         }
 
         // Create user file and write personal information into it
         private void CreateUserFile()
         {
-            // Unique User ID
-            string UserId;
-            // Concatenate User info and date
-            string UserData = Student.Name.ToString() + Student.Surname.ToString() + DateTime.Now.ToString();
             // Unique file name
             string FileName;
             
-            // Generate unique user ID
-            UserId = Math.Abs(UserData.GetHashCode()).ToString();
             // Concatenate User Name and Unique ID to generate file name
-            FileName = Student.Name.ToString() + "_" + Student.Surname.ToString() + "_" + UserId;
+            FileName = TestData.TestSet + TestSubject.Id + "_" + TestSubject.Name + "_" + TestSubject.Surname  ;
             // Calculate user file path
             FilePath = @"Results\" + FileName + ".res";
             // If user file already exists
             using (StreamWriter WriteToFile = File.CreateText(FilePath))
             {
-                WriteToFile.WriteLine(DateTime.Now.ToString());
-                WriteToFile.WriteLine(UserId);
-                WriteToFile.WriteLine(Student.Name.ToString());
-                WriteToFile.WriteLine(Student.Surname.ToString());
-                WriteToFile.WriteLine(Student.Gender.ToString());
-                WriteToFile.WriteLine(Student.Age.ToString());
-                WriteToFile.WriteLine(Student.Uni.ToString());
-                WriteToFile.WriteLine(Student.Spec.ToString());
-                WriteToFile.WriteLine(Student.Deg.ToString());
-                WriteToFile.WriteLine(Student.Year.ToString());
-                WriteToFile.WriteLine("--------- TEST RESULTS ---------");
+                WriteToFile.WriteLine("Date/Time:   {0}", TestData.DateTime);
+                WriteToFile.WriteLine("Test ID:     {0}{1}", TestData.TestSet, TestSubject.Id);
+                WriteToFile.WriteLine("");
+                WriteToFile.WriteLine("--------- Personal information ---------");
+                WriteToFile.WriteLine("Name:        {0}", TestSubject.Name);
+                WriteToFile.WriteLine("Surname:     {0}", TestSubject.Surname);
+                WriteToFile.WriteLine("Gender:      {0}", TestSubject.Gender);
+                WriteToFile.WriteLine("Age:         {0}", TestSubject.Age);
+                WriteToFile.WriteLine("");
+                WriteToFile.WriteLine("---------------- Studies ---------------");
+                WriteToFile.WriteLine("Speciality:  {0}", TestSubject.Spec);
+                WriteToFile.WriteLine("Institution: {0}", TestSubject.Uni);
+                WriteToFile.WriteLine("Year:        {0}", TestSubject.Year);
+                WriteToFile.WriteLine("Degree:      {0}", TestSubject.Deg);
+                WriteToFile.WriteLine("");
+                WriteToFile.WriteLine("-------------- Test Results ------------");
             }
         }
 
         // Display a specific picture from a set
         private void DisplayImage(int Set, int Pic)
         {
-            // Calculate image name based on index
-            int PictName = Const.PicsPerSet - IdxImg + 1;
             // Calculate path to current picture
-            string s_Picture = @".\Pictures\" + IdxSet.ToString() + @"\" + PictName.ToString() + ".png";
-
+            string ImgFilePath = TestSetPathList[Set] +"\\" + Pic.ToString() + ".png";
             // Set image display mode based on image size
-            using (Image Picture = Image.FromFile(s_Picture))
+            using (Image Picture = Image.FromFile(ImgFilePath))
             {
                 // If the image is smaller than the display area
                 if (Picture.Width <= 700 && Picture.Height <= 662)
@@ -101,118 +96,142 @@ namespace Borimeter
                 else
                 {
                     // Set image size mode to stretch
-                    box_PictureArea.SizeMode = PictureBoxSizeMode.StretchImage;
+                    box_PictureArea.SizeMode = PictureBoxSizeMode.Zoom;
                 }
             }
             // Load picture into picture area
-            box_PictureArea.Load(s_Picture);
+            box_PictureArea.Load(ImgFilePath);
             // Make picture area visible
             box_PictureArea.Visible = true;
-            // Reset diplay time-out
-            // Reset time-out counter
-            TimeOutCounter = Const.PicTimeOut;
         }
 
         // Submit button action
-        private void btn_Submit_Click(object sender, EventArgs e)
+        private void SubmitButton_Click(object sender, EventArgs e)
         {
-            bool b_InputOk  = true;
-            string s_Gender = "";
+            bool PersonalInfoComplete = true;
+            bool StudiesInfoComplete = true;
+            bool TestSetChoosen = true;
 
-            // Get gender from radio buttons
-            if (rb_Male.Checked)
+            string UserIdData;
+
+            // Clear notification area content
+            InfoTextBox.Clear();
+            // Check personal information are filled in
+            if (txt_Name.Text == "" || txt_Surname.Text == "" || cmb_Gender.Text == "" || num_Age.Value == 0)
             {
-                s_Gender = "M";
+                PersonalInfoComplete = false;
+                // Display notification
+                InfoTextBox.AppendText(Environment.NewLine + "Please fill in all Personal information fields.");
+                InfoTextBox.AppendText(Environment.NewLine);
             }
-            else if (rb_Female.Checked)
+            // Check if information about studies are filled in
+            if (txt_Speciality.Text == "" || cmb_Year.Text == "")
             {
-                s_Gender = "F";
+                StudiesInfoComplete = false;
+                // Display notification
+                InfoTextBox.AppendText(Environment.NewLine + "Please fill in information about your studies:");
+                InfoTextBox.AppendText(Environment.NewLine + " - University and Degree are optional");
+                InfoTextBox.AppendText(Environment.NewLine);
             }
-            else
+            // Check if test set was chosen
+            if (cmb_TestSet.Text == "")
             {
-                s_Gender = "T";
+                TestSetChoosen = false;
+                // Display notification
+                InfoTextBox.AppendText(Environment.NewLine + "Please chose a test set indicated by the instructor.");
+                InfoTextBox.AppendText(Environment.NewLine);
             }
-            // Check if all input fields were completed
-            b_InputOk = Student.GetInfo(txt_Name.Text, txt_Surname.Text, s_Gender, (int)num_Age.Value, txt_University.Text, txt_Specialization.Text, cmb_Degree.Text, (int)num_Year.Value);
-            // If input fields were completed
-            if (b_InputOk)
+
+            // If all information is complete
+            if (PersonalInfoComplete && StudiesInfoComplete && TestSetChoosen)
             {
+                // Populate information about the test subject
+                TestSubject.Name    = txt_Name.Text;
+                TestSubject.Surname = txt_Surname.Text;
+                TestSubject.Gender  = cmb_Gender.Text;
+                TestSubject.Age     = num_Age.Value.ToString();
+                TestSubject.Spec    = txt_Speciality.Text;
+                TestSubject.Uni     = txt_University.Text;
+                TestSubject.Year    = cmb_Year.Text;
+                TestSubject.Deg     = cmb_Degree.Text;
+                // Calculate unique user ID
+                UserIdData          = TestSubject.Name + TestSubject.Surname + DateTime.Now.ToString();
+                TestSubject.Id      = Math.Abs(UserIdData.GetHashCode()).ToString();
+                // Populate test data
+                TestData.TestSet    = cmb_TestSet.Text;
+                TestData.DateTime   = DateTime.Now.ToString();
+                // Get all directories of the test sets
+                TestSetPathList = Directory.GetDirectories(@"Pictures\" + TestData.TestSet + "\\");
                 // Grey-out User information fields
                 DisableInput();
                 // Create user file
                 CreateUserFile();
-            }
-            // If input fields were not completed
-            else
-            {
-                // TODO: Show warning in the Information area.
-            }
+                // Clear notification area
+                InfoTextBox.Clear();
+                // Display notification
+                InfoTextBox.AppendText(Environment.NewLine + "Please press the Start button to enter the Demo trial.");
+                InfoTextBox.AppendText(Environment.NewLine);
+                InfoTextBox.AppendText(Environment.NewLine + "Guiding information will be shown here during the Demo.");
+            } 
         }
 
         // Start button action
-        private void btn_Start_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
-            // Start timer and sample start time
-            TestTime.Start();
-            StartTime = Time.GetTrialTime();
+            // Clear notification area content
+            InfoTextBox.Clear();
             // Enable test controls
             box_TestControls.Enabled = true;
             // Disable Start button
             btn_Start.Enabled = false;
             // Initialize indexes to first picture from first set
-            IdxImg = 1;
-            IdxSet = 1;
+            IdxImg = 20;
+            IdxSet = 0;
             // Display current picture
             DisplayImage(IdxSet, IdxImg);
-        }
-
-        private void txt_Category_TextChanged(object sender, EventArgs e)
-        {
-
+            // Display notification
+            InfoTextBox.AppendText(Environment.NewLine + "To see a less distorted phase of the image press Next Picture.");
+            InfoTextBox.AppendText(Environment.NewLine);
+            InfoTextBox.AppendText(Environment.NewLine + "When the object was identified press the Got It button, fill in Name and Category and press Submit.");
+            InfoTextBox.AppendText(Environment.NewLine);
+            InfoTextBox.AppendText(Environment.NewLine + "Press the Next Trial button to get to the next set of distorted images.");
         }
 
         // Next Picture button action
-        private void btn_NextPicture_Click(object sender, EventArgs e)
+        private void NextPictureButton_Click(object sender, EventArgs e)
         {
-            if (IdxImg < Const.PicsPerSet)
+            int Idx = Const_NrPicPerSet - IdxImg;
+
+            // There is an upcoming picture
+            if (--IdxImg > 0)
             {
-                // Switch to the next picture in current set
-                IdxImg++;
+                // Get image display time
+                TestData.ImgDispTime[Idx] = Time.GetImgDispTime_100ms();
                 // Display current picture
                 DisplayImage(IdxSet, IdxImg);
             }
-            // If the last picture from current set is reached
-            if (IdxImg == Const.PicsPerSet)
+            // Last picture from current set is reached
+            else
             {
-                // Disable Next Picture and Got It buttons
+                // Disable Next Picture button
                 btn_NextPicture.Enabled = false;
-                btn_GotIt.Enabled = false;
-                // Enable Submit button
-                btn_Complete.Enabled = true;
-                // Enable Category and Name input fields
-                txt_Category.Enabled = true;
-                txt_Description.Enabled = true;
+                // Adjust image index back to 1
+                IdxImg = 1;
             }
         }
 
         // Next Trial button action
-        private void btn_NextTrial_Click(object sender, EventArgs e)
+        private void NextTrialButton_Click(object sender, EventArgs e)
         {
-            // If the last set is reached
-            if (IdxSet == Const.NrOfSets)
+            // Clear notification area content
+            InfoTextBox.Clear();
+            // There is an upcoming set
+            if (++IdxSet < TestSetPathList.Length)
             {
-                // Disable Test Control box
-                box_TestControls.Enabled = false;
-                // Enable Finish button
-                btn_Finish.Enabled = true;
-
-            }
-            // There are more sets to show
-            else if (IdxSet < Const.NrOfSets)
-            {
-                // Enable timer and sample time
-                TestTime.Start();
-                StartTime = Time.GetTrialTime();
+                // Reset image index
+                IdxImg = Const_NrPicPerSet;
+                // Reset Image Display Time array
+                Array.Clear(TestData.ImgDispTime, 0, Const_NrPicPerSet);
                 // Enable Next Picture and Got It buttons
                 btn_NextPicture.Enabled = true;
                 btn_GotIt.Enabled = true;
@@ -221,22 +240,32 @@ namespace Borimeter
                 // Disable Category and Name input fields
                 txt_Description.Enabled = false;
                 txt_Category.Enabled = false;
-                // Switch to 1st picture in the next set
-                IdxSet++;
-                IdxImg = 1;
                 // Display current picture
                 DisplayImage(IdxSet, IdxImg);
+                // Enable timer
+                TestTime.Start();
+            }
+            // Last set was reached
+            else
+            {
+                // Disable Test Control box
+                box_TestControls.Enabled = false;
+                // Enable Finish button
+                btn_Finish.Enabled = true;
             }
         }
 
-        private void chk_Progress_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         // Stop button action
-        private void btn_Stop_Click(object sender, EventArgs e)
+        private void StopButton_Click(object sender, EventArgs e)
         {
+            int Idx = Const_NrPicPerSet - IdxImg;
+
+            // Stop timer
+            TestTime.Stop();
+            // Get image display time
+            TestData.ImgDispTime[Idx] = Time.GetImgDispTime_100ms();
+            // Make picture area visible
+            box_PictureArea.Visible = false;
             // Enable Category and Name input fields
             txt_Category.Enabled = true;
             txt_Description.Enabled = true;
@@ -248,22 +277,25 @@ namespace Borimeter
         }
 
         // Submit Solution button action
-        private void btn_SubmitSolution_Click(object sender, EventArgs e)
+        private void SubmitSolutionButton_Click(object sender, EventArgs e)
         {
+
             // If solution fields were filled in
             if (txt_Category.Text != "" && txt_Description.Text != "")
             {
-                // Stop timer and measure elapsed time
-                TestTime.Stop();
-                Test.TrialTime[IdxSet - 1] = Time.GetTrialTime() - StartTime;
-                Test.TrialStep[IdxSet - 1] = IdxImg;
-                // Reset trial time
-                Time.Trial = 0;
-                // Save trial Name and Category
-                Test.TrialType[IdxSet-1] = txt_Category.Text;
-                Test.TrialName[IdxSet-1] = txt_Description.Text;
-                // Write trial results to file
-                WriteTrialResultToFile();
+                // Don't do for DEMO set
+                if (IdxSet != 0)
+                {
+                    // Get trial time in 100ms
+                    TestData.TrialTime = Time.GetTrialTime_100ms();
+                    // Save image index
+                    TestData.TrialStep = IdxImg;
+                    // Save trial Name and Category
+                    TestData.TrialType = txt_Category.Text;
+                    TestData.TrialName = txt_Description.Text;
+                    // Write trial results to file
+                    WriteTrialResultToFile();
+                }
                 // Clear input fields
                 txt_Category.Clear();
                 txt_Description.Clear();
@@ -274,38 +306,53 @@ namespace Borimeter
                 btn_Complete.Enabled = false;
                 // Enable Next Trial button
                 btn_NextTrial.Enabled = true;
+                // Clear notification area
+                InfoTextBox.Clear();
             }
             else
             {
-                // TODO: Show warning in Information area
+                // Clear notification area
+                InfoTextBox.Clear();
+                // Display notification
+                InfoTextBox.AppendText(Environment.NewLine + "Please fill in both Name and Category fields before you press Submit!");
             }
+        }
+
+        // Finish button action
+        private void FinishButton_Click(object sender, EventArgs e)
+        {
+            // Exit application
+            Application.Exit();
         }
 
         // Write current trial results
         private void WriteTrialResultToFile()
         {
-            int Idx = IdxSet - 1;
-            int Sec = Test.TrialTime[Idx] / 10;
-            int MSec = Test.TrialTime[Idx] % 10;
+            int Sec = TestData.TrialTime / 10;
+            int MSec = TestData.TrialTime % 10;
 
             // Write solution to user file
             using (StreamWriter WriteToFile = File.AppendText(FilePath))
             {
-                WriteToFile.WriteLine(
-                    IdxSet.ToString() + ": " +
-                    Test.TrialStep[Idx].ToString() + ", " +
-                    Sec.ToString() + "." + MSec.ToString() + "s, " +
-                    Test.TrialType[Idx] + ", " +
-                    Test.TrialName[Idx]
-                );
-            }
-        }
+                // Write trial results
+                WriteToFile.Write("{0}: {1}, {2}.{3}s, {4}, {5} | ",
+                    IdxSet.ToString(),
+                    TestData.TrialStep.ToString(),
+                    Sec.ToString(),
+                    MSec.ToString(),
+                    TestData.TrialType,
+                    TestData.TrialName
+                    );
+                // Write individual image display times
+                foreach (int Value in TestData.ImgDispTime)
+                {
+                    Sec = Value / 10;
+                    MSec = Value % 10;
+                    WriteToFile.Write("{0}.{1}s  ", Sec, MSec);
 
-        // Finish button action
-        private void btn_Finish_Click(object sender, EventArgs e)
-        {
-            // Exit application
-            Application.Exit();
+                }
+                WriteToFile.WriteLine("");
+            }
         }
 
         // 100ms time event
@@ -313,33 +360,27 @@ namespace Borimeter
         {
             // Increment time unit (sec)
             Time.IncTime();
-            if (TimeOutCounter > 0)
-            {
-                // If timeout has reached
-                if (--TimeOutCounter == 0)
-                {
-                    // Hide picture area
-                    box_PictureArea.Visible = false;
-                }
-            }
         }
     }
 
     // Time class
-    public class c_Time
+    public class TimeClass
     {
-        public int Mil = 0;
-        public int Sec = 0;
-        public int Min = 0;
-        public int Ora = 0;
-        public int Total = 0;
-        public int Trial = 0;
+        private int Mil = 0;
+        private int Sec = 0;
+        private int Min = 0;
+        private int Ora = 0;
+        private int Total = 0;
+        private int Trial = 0;
+        private int Image = 0;
 
         // Increment Total time (sec) and Hour:Min:Sec
         public void IncTime()
         {
             // Increment trial time
             Trial++;
+            // Increment image display time
+            Image++;
             // Increment hour, minutes, seconds and milliseconds individually
             if (Mil < 10)
             {
@@ -371,7 +412,7 @@ namespace Borimeter
         }
 
         // Get Time in Hour:Mint:Sec format
-        public string GetTimeHMS()
+        public string GetTime_hms()
         {
             string TimeString;
             
@@ -399,87 +440,65 @@ namespace Borimeter
             return TimeString;
         }
 
-        // Get trial time in milliseconds
-        public  int GetTrialTime()
+        public int GetImgDispTime_100ms()
         {
+            int ImageDisplayTime = Image;
+
+            // Reset image display time
+            Image = 0;
+            // Return image display time
+            return ImageDisplayTime;
+        }
+
+        // Get trial time in 100 milliseconds
+        public int GetTrialTime_100ms()
+        {
+            int TrialTime = Trial;
+
+            // Reset trial time
+            Trial = 0;
+            // Reset image display time
+            Image = 0;
             // Return trial time
-            return Trial;
+            return TrialTime;
         }
 
         // Get total test time in seconds
-        public int GetTotalTime()
+        public int GetTotalTime_Sec()
         {
             // Return total amount of time
             return Total;
         }
     }
     
-    // Class to define constant values
-    public class Const
-    {
-        // Maximum number of pictures per set
-        public const int PicsPerSet = 6;
-        // Maximum number of sets
-        // TODO: Correct value to 20 on final version
-        public const int NrOfSets = 18;
-        // Picture display timeout in hundreds of milliseconds
-        public const int PicTimeOut = 30;
-    }
-
     // Test trial information
-    public class c_Test
+    public class TestDataClass
     {
+        // Test Set: A,B or C
+        public string TestSet = "";
+        // Test Date
+        public string DateTime = "";
         // Measure time and step count for each trial
-        public int[] TrialTime = new int[Const.NrOfSets];
-        public int[] TrialStep = new int[Const.NrOfSets];
+        public int TrialTime;
+        public int TrialStep;
+        public int[] ImgDispTime = new int[20];
         // Store name and Category for each trial
-        public string[] TrialName = new string[Const.NrOfSets];
-        public string[] TrialType = new string[Const.NrOfSets];
+        public string TrialName;
+        public string TrialType;
         // Total amount of time needed to complete the whole test
         public int TotalTime = 0;
     }
 
-    public class c_Student
+    public class TestSubjectClass
     {
-        public int      Id      = 0;
-        public string   Name    = "";
-        public string   Surname = "";
-        public string   Gender  = "";
-        public int      Age     = 0;
-        public string   Uni     = "";
-        public string   Spec    = "";
-        public string   Deg     = "";
-        public int  Year    = 0;
-
-        public bool GetInfo(string in_Name, string in_Surname, string in_Gender, int in_Age, string in_Uni, string in_Spec, string in_Deg, int in_Year)
-        {
-            bool b_InputOk = true;
-
-            // Personal Information is incomplete
-            if (in_Name     == "" ||
-                in_Surname  == "" ||
-                in_Age      == 0  ||
-                in_Uni      == "" ||
-                in_Spec     ==""  ||
-                in_Deg      == "" ||
-                in_Year     == 0)
-            {
-                b_InputOk = false;
-            }
-            // Personal Information is complete
-            else
-            {
-                Name    = in_Name;
-                Surname = in_Surname;
-                Gender  = in_Gender;
-                Age     = in_Age;
-                Uni     = in_Uni;
-                Spec    = in_Spec;
-                Deg     = in_Deg ;
-                Year    = in_Year;
-            }
-
-            return b_InputOk;
-        }
+        public string Id      = "";
+        public string Name    = "";
+        public string Surname = "";
+        public string Gender  = "";
+        public string Age     = "";
+        public string Uni     = "";
+        public string Spec    = "";
+        public string Deg     = "";
+        public string Year    = "";
     }
 }

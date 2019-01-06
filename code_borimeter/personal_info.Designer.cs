@@ -1,6 +1,6 @@
 ﻿namespace Borimeter
 {
-    partial class wnd_MainWindow
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(wnd_MainWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.lay_MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_MainControl = new System.Windows.Forms.Panel();
             this.box_Controls = new System.Windows.Forms.GroupBox();
@@ -37,26 +37,29 @@
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Submit = new System.Windows.Forms.Button();
             this.pnl_PersonalInfo = new System.Windows.Forms.Panel();
+            this.Studies = new System.Windows.Forms.GroupBox();
+            this.cmb_Year = new System.Windows.Forms.ComboBox();
+            this.lbl_Year = new System.Windows.Forms.Label();
+            this.lbl_Degree = new System.Windows.Forms.Label();
+            this.cmb_Degree = new System.Windows.Forms.ComboBox();
+            this.lbl_Speciality = new System.Windows.Forms.Label();
+            this.txt_Speciality = new System.Windows.Forms.TextBox();
+            this.lbl_University = new System.Windows.Forms.Label();
+            this.txt_University = new System.Windows.Forms.TextBox();
+            this.TestSet = new System.Windows.Forms.GroupBox();
+            this.lbl_TestSet = new System.Windows.Forms.Label();
+            this.cmb_TestSet = new System.Windows.Forms.ComboBox();
             this.Information = new System.Windows.Forms.GroupBox();
             this.InfoTextBox = new System.Windows.Forms.RichTextBox();
-            this.box_PersonalInfo = new System.Windows.Forms.GroupBox();
+            this.PersonalInfo = new System.Windows.Forms.GroupBox();
+            this.cmb_Gender = new System.Windows.Forms.ComboBox();
             this.lbl_Name = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txt_Name = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.txt_Surname = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.lbl_Surname = new System.Windows.Forms.Label();
-            this.num_Year = new System.Windows.Forms.NumericUpDown();
-            this.rb_Male = new System.Windows.Forms.RadioButton();
-            this.txt_Specialization = new System.Windows.Forms.TextBox();
-            this.rb_Female = new System.Windows.Forms.RadioButton();
-            this.cmb_Degree = new System.Windows.Forms.ComboBox();
             this.lbl_Gender = new System.Windows.Forms.Label();
             this.lbl_Age = new System.Windows.Forms.Label();
             this.num_Age = new System.Windows.Forms.NumericUpDown();
-            this.lbl_University = new System.Windows.Forms.Label();
-            this.txt_University = new System.Windows.Forms.TextBox();
             this.pnl_PictureCtrl = new System.Windows.Forms.Panel();
             this.box_TestControls = new System.Windows.Forms.GroupBox();
             this.btn_GotIt = new System.Windows.Forms.Button();
@@ -71,25 +74,20 @@
             this.box_Image = new System.Windows.Forms.GroupBox();
             this.box_PictureArea = new System.Windows.Forms.PictureBox();
             this.TestTime = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TesSet = new System.Windows.Forms.GroupBox();
-            this.TestSetA = new System.Windows.Forms.RadioButton();
-            this.TestSetB = new System.Windows.Forms.RadioButton();
-            this.TestSetC = new System.Windows.Forms.RadioButton();
             this.lay_MainLayout.SuspendLayout();
             this.pnl_MainControl.SuspendLayout();
             this.box_Controls.SuspendLayout();
             this.pnl_PersonalInfo.SuspendLayout();
+            this.Studies.SuspendLayout();
+            this.TestSet.SuspendLayout();
             this.Information.SuspendLayout();
-            this.box_PersonalInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Year)).BeginInit();
+            this.PersonalInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Age)).BeginInit();
             this.pnl_PictureCtrl.SuspendLayout();
             this.box_TestControls.SuspendLayout();
             this.pnl_PictureArea.SuspendLayout();
             this.box_Image.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_PictureArea)).BeginInit();
-            this.TesSet.SuspendLayout();
             this.SuspendLayout();
             // 
             // lay_MainLayout
@@ -110,7 +108,7 @@
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.lay_MainLayout.Size = new System.Drawing.Size(980, 787);
             this.lay_MainLayout.TabIndex = 11;
-            this.lay_MainLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.lyo_MainTableLayout_Paint);
+            this.lay_MainLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.MainTableLayout_Paint);
             // 
             // pnl_MainControl
             // 
@@ -129,7 +127,7 @@
             this.box_Controls.Location = new System.Drawing.Point(4, 5);
             this.box_Controls.Name = "box_Controls";
             this.box_Controls.Size = new System.Drawing.Size(226, 54);
-            this.box_Controls.TabIndex = 13;
+            this.box_Controls.TabIndex = 0;
             this.box_Controls.TabStop = false;
             this.box_Controls.Text = "Controls";
             // 
@@ -142,7 +140,7 @@
             this.btn_Finish.TabIndex = 13;
             this.btn_Finish.Text = "Finish";
             this.btn_Finish.UseVisualStyleBackColor = true;
-            this.btn_Finish.Click += new System.EventHandler(this.btn_Finish_Click);
+            this.btn_Finish.Click += new System.EventHandler(this.FinishButton_Click);
             // 
             // btn_Start
             // 
@@ -153,7 +151,7 @@
             this.btn_Start.TabIndex = 12;
             this.btn_Start.Text = "Start";
             this.btn_Start.UseVisualStyleBackColor = true;
-            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            this.btn_Start.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // btn_Submit
             // 
@@ -163,26 +161,157 @@
             this.btn_Submit.TabIndex = 11;
             this.btn_Submit.Text = "Submit";
             this.btn_Submit.UseVisualStyleBackColor = true;
-            this.btn_Submit.Click += new System.EventHandler(this.btn_Submit_Click);
+            this.btn_Submit.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
             // pnl_PersonalInfo
             // 
-            this.pnl_PersonalInfo.Controls.Add(this.TesSet);
+            this.pnl_PersonalInfo.Controls.Add(this.Studies);
+            this.pnl_PersonalInfo.Controls.Add(this.TestSet);
             this.pnl_PersonalInfo.Controls.Add(this.Information);
-            this.pnl_PersonalInfo.Controls.Add(this.box_PersonalInfo);
+            this.pnl_PersonalInfo.Controls.Add(this.PersonalInfo);
             this.pnl_PersonalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PersonalInfo.Location = new System.Drawing.Point(3, 3);
             this.pnl_PersonalInfo.Name = "pnl_PersonalInfo";
             this.pnl_PersonalInfo.Size = new System.Drawing.Size(234, 710);
             this.pnl_PersonalInfo.TabIndex = 0;
             // 
+            // Studies
+            // 
+            this.Studies.Controls.Add(this.cmb_Year);
+            this.Studies.Controls.Add(this.lbl_Year);
+            this.Studies.Controls.Add(this.lbl_Degree);
+            this.Studies.Controls.Add(this.cmb_Degree);
+            this.Studies.Controls.Add(this.lbl_Speciality);
+            this.Studies.Controls.Add(this.txt_Speciality);
+            this.Studies.Controls.Add(this.lbl_University);
+            this.Studies.Controls.Add(this.txt_University);
+            this.Studies.Location = new System.Drawing.Point(3, 149);
+            this.Studies.Name = "Studies";
+            this.Studies.Size = new System.Drawing.Size(226, 195);
+            this.Studies.TabIndex = 2;
+            this.Studies.TabStop = false;
+            this.Studies.Text = "Studies";
+            // 
+            // cmb_Year
+            // 
+            this.cmb_Year.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_Year.FormattingEnabled = true;
+            this.cmb_Year.Items.AddRange(new object[] {
+            "1st Year",
+            "2nd Year",
+            "3rd Year",
+            "4th Year",
+            "5th Year",
+            "6th Year"});
+            this.cmb_Year.Location = new System.Drawing.Point(85, 138);
+            this.cmb_Year.Name = "cmb_Year";
+            this.cmb_Year.Size = new System.Drawing.Size(136, 21);
+            this.cmb_Year.TabIndex = 7;
+            // 
+            // lbl_Year
+            // 
+            this.lbl_Year.AutoSize = true;
+            this.lbl_Year.Location = new System.Drawing.Point(6, 141);
+            this.lbl_Year.Name = "lbl_Year";
+            this.lbl_Year.Size = new System.Drawing.Size(66, 13);
+            this.lbl_Year.TabIndex = 21;
+            this.lbl_Year.Text = "Year/Grade:";
+            // 
+            // lbl_Degree
+            // 
+            this.lbl_Degree.AutoSize = true;
+            this.lbl_Degree.Location = new System.Drawing.Point(6, 168);
+            this.lbl_Degree.Name = "lbl_Degree";
+            this.lbl_Degree.Size = new System.Drawing.Size(49, 13);
+            this.lbl_Degree.TabIndex = 20;
+            this.lbl_Degree.Text = "Degree*:";
+            // 
+            // cmb_Degree
+            // 
+            this.cmb_Degree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_Degree.FormattingEnabled = true;
+            this.cmb_Degree.Items.AddRange(new object[] {
+            "Master (MA)",
+            "Bachelor (BA)"});
+            this.cmb_Degree.Location = new System.Drawing.Point(85, 165);
+            this.cmb_Degree.Name = "cmb_Degree";
+            this.cmb_Degree.Size = new System.Drawing.Size(136, 21);
+            this.cmb_Degree.TabIndex = 8;
+            // 
+            // lbl_Speciality
+            // 
+            this.lbl_Speciality.AutoSize = true;
+            this.lbl_Speciality.Location = new System.Drawing.Point(6, 29);
+            this.lbl_Speciality.Name = "lbl_Speciality";
+            this.lbl_Speciality.Size = new System.Drawing.Size(55, 13);
+            this.lbl_Speciality.TabIndex = 17;
+            this.lbl_Speciality.Text = "Speciality:";
+            // 
+            // txt_Speciality
+            // 
+            this.txt_Speciality.Location = new System.Drawing.Point(85, 26);
+            this.txt_Speciality.Multiline = true;
+            this.txt_Speciality.Name = "txt_Speciality";
+            this.txt_Speciality.Size = new System.Drawing.Size(136, 50);
+            this.txt_Speciality.TabIndex = 5;
+            // 
+            // lbl_University
+            // 
+            this.lbl_University.AutoSize = true;
+            this.lbl_University.Location = new System.Drawing.Point(6, 85);
+            this.lbl_University.Name = "lbl_University";
+            this.lbl_University.Size = new System.Drawing.Size(63, 13);
+            this.lbl_University.TabIndex = 12;
+            this.lbl_University.Text = "University* :";
+            // 
+            // txt_University
+            // 
+            this.txt_University.Location = new System.Drawing.Point(85, 82);
+            this.txt_University.Multiline = true;
+            this.txt_University.Name = "txt_University";
+            this.txt_University.Size = new System.Drawing.Size(136, 50);
+            this.txt_University.TabIndex = 6;
+            // 
+            // TestSet
+            // 
+            this.TestSet.Controls.Add(this.lbl_TestSet);
+            this.TestSet.Controls.Add(this.cmb_TestSet);
+            this.TestSet.Location = new System.Drawing.Point(3, 350);
+            this.TestSet.Name = "TestSet";
+            this.TestSet.Size = new System.Drawing.Size(226, 49);
+            this.TestSet.TabIndex = 3;
+            this.TestSet.TabStop = false;
+            this.TestSet.Text = "Test set";
+            // 
+            // lbl_TestSet
+            // 
+            this.lbl_TestSet.AutoSize = true;
+            this.lbl_TestSet.Location = new System.Drawing.Point(6, 23);
+            this.lbl_TestSet.Name = "lbl_TestSet";
+            this.lbl_TestSet.Size = new System.Drawing.Size(63, 13);
+            this.lbl_TestSet.TabIndex = 1;
+            this.lbl_TestSet.Text = "Choose set:";
+            // 
+            // cmb_TestSet
+            // 
+            this.cmb_TestSet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_TestSet.FormattingEnabled = true;
+            this.cmb_TestSet.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C"});
+            this.cmb_TestSet.Location = new System.Drawing.Point(85, 20);
+            this.cmb_TestSet.Name = "cmb_TestSet";
+            this.cmb_TestSet.Size = new System.Drawing.Size(136, 21);
+            this.cmb_TestSet.TabIndex = 9;
+            // 
             // Information
             // 
             this.Information.Controls.Add(this.InfoTextBox);
-            this.Information.Location = new System.Drawing.Point(4, 372);
+            this.Information.Location = new System.Drawing.Point(3, 405);
             this.Information.Name = "Information";
-            this.Information.Size = new System.Drawing.Size(225, 329);
-            this.Information.TabIndex = 20;
+            this.Information.Size = new System.Drawing.Size(226, 296);
+            this.Information.TabIndex = 0;
             this.Information.TabStop = false;
             this.Information.Text = "Information";
             // 
@@ -194,54 +323,49 @@
             this.InfoTextBox.Name = "InfoTextBox";
             this.InfoTextBox.ReadOnly = true;
             this.InfoTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.InfoTextBox.Size = new System.Drawing.Size(216, 298);
+            this.InfoTextBox.Size = new System.Drawing.Size(216, 270);
             this.InfoTextBox.TabIndex = 0;
             this.InfoTextBox.Text = "";
             // 
-            // box_PersonalInfo
+            // PersonalInfo
             // 
-            this.box_PersonalInfo.Controls.Add(this.lbl_Name);
-            this.box_PersonalInfo.Controls.Add(this.label3);
-            this.box_PersonalInfo.Controls.Add(this.txt_Name);
-            this.box_PersonalInfo.Controls.Add(this.label2);
-            this.box_PersonalInfo.Controls.Add(this.txt_Surname);
-            this.box_PersonalInfo.Controls.Add(this.label1);
-            this.box_PersonalInfo.Controls.Add(this.lbl_Surname);
-            this.box_PersonalInfo.Controls.Add(this.num_Year);
-            this.box_PersonalInfo.Controls.Add(this.rb_Male);
-            this.box_PersonalInfo.Controls.Add(this.txt_Specialization);
-            this.box_PersonalInfo.Controls.Add(this.rb_Female);
-            this.box_PersonalInfo.Controls.Add(this.cmb_Degree);
-            this.box_PersonalInfo.Controls.Add(this.lbl_Gender);
-            this.box_PersonalInfo.Controls.Add(this.lbl_Age);
-            this.box_PersonalInfo.Controls.Add(this.num_Age);
-            this.box_PersonalInfo.Controls.Add(this.lbl_University);
-            this.box_PersonalInfo.Controls.Add(this.txt_University);
-            this.box_PersonalInfo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.box_PersonalInfo.Location = new System.Drawing.Point(3, 9);
-            this.box_PersonalInfo.Name = "box_PersonalInfo";
-            this.box_PersonalInfo.Size = new System.Drawing.Size(226, 301);
-            this.box_PersonalInfo.TabIndex = 18;
-            this.box_PersonalInfo.TabStop = false;
-            this.box_PersonalInfo.Text = "Personal information";
+            this.PersonalInfo.Controls.Add(this.cmb_Gender);
+            this.PersonalInfo.Controls.Add(this.lbl_Name);
+            this.PersonalInfo.Controls.Add(this.txt_Name);
+            this.PersonalInfo.Controls.Add(this.txt_Surname);
+            this.PersonalInfo.Controls.Add(this.lbl_Surname);
+            this.PersonalInfo.Controls.Add(this.lbl_Gender);
+            this.PersonalInfo.Controls.Add(this.lbl_Age);
+            this.PersonalInfo.Controls.Add(this.num_Age);
+            this.PersonalInfo.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.PersonalInfo.Location = new System.Drawing.Point(3, 9);
+            this.PersonalInfo.Name = "PersonalInfo";
+            this.PersonalInfo.Size = new System.Drawing.Size(226, 134);
+            this.PersonalInfo.TabIndex = 1;
+            this.PersonalInfo.TabStop = false;
+            this.PersonalInfo.Text = "Personal information";
+            // 
+            // cmb_Gender
+            // 
+            this.cmb_Gender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_Gender.FormattingEnabled = true;
+            this.cmb_Gender.Items.AddRange(new object[] {
+            "Male",
+            "Female",
+            "Other"});
+            this.cmb_Gender.Location = new System.Drawing.Point(85, 78);
+            this.cmb_Gender.Name = "cmb_Gender";
+            this.cmb_Gender.Size = new System.Drawing.Size(136, 21);
+            this.cmb_Gender.TabIndex = 3;
             // 
             // lbl_Name
             // 
             this.lbl_Name.AutoSize = true;
-            this.lbl_Name.Location = new System.Drawing.Point(6, 27);
+            this.lbl_Name.Location = new System.Drawing.Point(6, 24);
             this.lbl_Name.Name = "lbl_Name";
             this.lbl_Name.Size = new System.Drawing.Size(38, 13);
             this.lbl_Name.TabIndex = 0;
             this.lbl_Name.Text = "Name:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 274);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Year/Grade:";
             // 
             // txt_Name
             // 
@@ -251,31 +375,14 @@
             this.txt_Name.Size = new System.Drawing.Size(136, 20);
             this.txt_Name.TabIndex = 1;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 248);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Degree:";
-            // 
             // txt_Surname
             // 
+            this.txt_Surname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_Surname.Location = new System.Drawing.Point(85, 51);
             this.txt_Surname.MaxLength = 20;
             this.txt_Surname.Name = "txt_Surname";
             this.txt_Surname.Size = new System.Drawing.Size(136, 20);
             this.txt_Surname.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 192);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Specialization:";
             // 
             // lbl_Surname
             // 
@@ -285,60 +392,6 @@
             this.lbl_Surname.Size = new System.Drawing.Size(52, 13);
             this.lbl_Surname.TabIndex = 3;
             this.lbl_Surname.Text = "Surname:";
-            // 
-            // num_Year
-            // 
-            this.num_Year.Location = new System.Drawing.Point(85, 272);
-            this.num_Year.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.num_Year.Name = "num_Year";
-            this.num_Year.Size = new System.Drawing.Size(136, 20);
-            this.num_Year.TabIndex = 9;
-            // 
-            // rb_Male
-            // 
-            this.rb_Male.AutoSize = true;
-            this.rb_Male.Location = new System.Drawing.Point(85, 77);
-            this.rb_Male.Name = "rb_Male";
-            this.rb_Male.Size = new System.Drawing.Size(48, 17);
-            this.rb_Male.TabIndex = 3;
-            this.rb_Male.TabStop = true;
-            this.rb_Male.Text = "Male";
-            this.rb_Male.UseVisualStyleBackColor = true;
-            // 
-            // txt_Specialization
-            // 
-            this.txt_Specialization.Location = new System.Drawing.Point(85, 189);
-            this.txt_Specialization.Multiline = true;
-            this.txt_Specialization.Name = "txt_Specialization";
-            this.txt_Specialization.Size = new System.Drawing.Size(136, 50);
-            this.txt_Specialization.TabIndex = 7;
-            // 
-            // rb_Female
-            // 
-            this.rb_Female.AutoSize = true;
-            this.rb_Female.Location = new System.Drawing.Point(159, 77);
-            this.rb_Female.Name = "rb_Female";
-            this.rb_Female.Size = new System.Drawing.Size(59, 17);
-            this.rb_Female.TabIndex = 4;
-            this.rb_Female.TabStop = true;
-            this.rb_Female.Text = "Female";
-            this.rb_Female.UseVisualStyleBackColor = true;
-            // 
-            // cmb_Degree
-            // 
-            this.cmb_Degree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_Degree.FormattingEnabled = true;
-            this.cmb_Degree.Items.AddRange(new object[] {
-            "Master (MA)",
-            "Bachelor (BA)"});
-            this.cmb_Degree.Location = new System.Drawing.Point(85, 245);
-            this.cmb_Degree.Name = "cmb_Degree";
-            this.cmb_Degree.Size = new System.Drawing.Size(136, 21);
-            this.cmb_Degree.TabIndex = 8;
             // 
             // lbl_Gender
             // 
@@ -364,24 +417,7 @@
             this.num_Age.Name = "num_Age";
             this.num_Age.ReadOnly = true;
             this.num_Age.Size = new System.Drawing.Size(136, 20);
-            this.num_Age.TabIndex = 5;
-            // 
-            // lbl_University
-            // 
-            this.lbl_University.AutoSize = true;
-            this.lbl_University.Location = new System.Drawing.Point(6, 132);
-            this.lbl_University.Name = "lbl_University";
-            this.lbl_University.Size = new System.Drawing.Size(56, 13);
-            this.lbl_University.TabIndex = 10;
-            this.lbl_University.Text = "University:";
-            // 
-            // txt_University
-            // 
-            this.txt_University.Location = new System.Drawing.Point(85, 132);
-            this.txt_University.Multiline = true;
-            this.txt_University.Name = "txt_University";
-            this.txt_University.Size = new System.Drawing.Size(136, 50);
-            this.txt_University.TabIndex = 6;
+            this.num_Age.TabIndex = 4;
             // 
             // pnl_PictureCtrl
             // 
@@ -418,7 +454,7 @@
             this.btn_GotIt.TabIndex = 17;
             this.btn_GotIt.Text = "Got it";
             this.btn_GotIt.UseVisualStyleBackColor = true;
-            this.btn_GotIt.Click += new System.EventHandler(this.btn_Stop_Click);
+            this.btn_GotIt.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // btn_Complete
             // 
@@ -429,7 +465,7 @@
             this.btn_Complete.TabIndex = 18;
             this.btn_Complete.Text = "Submit";
             this.btn_Complete.UseVisualStyleBackColor = true;
-            this.btn_Complete.Click += new System.EventHandler(this.btn_SubmitSolution_Click);
+            this.btn_Complete.Click += new System.EventHandler(this.SubmitSolutionButton_Click);
             // 
             // btn_NextPicture
             // 
@@ -440,7 +476,7 @@
             this.btn_NextPicture.TabIndex = 13;
             this.btn_NextPicture.Text = "Next Picture";
             this.btn_NextPicture.UseVisualStyleBackColor = true;
-            this.btn_NextPicture.Click += new System.EventHandler(this.btn_NextPicture_Click);
+            this.btn_NextPicture.Click += new System.EventHandler(this.NextPictureButton_Click);
             // 
             // btn_NextTrial
             // 
@@ -452,7 +488,7 @@
             this.btn_NextTrial.TabIndex = 14;
             this.btn_NextTrial.Text = "Next Trial";
             this.btn_NextTrial.UseVisualStyleBackColor = true;
-            this.btn_NextTrial.Click += new System.EventHandler(this.btn_NextTrial_Click);
+            this.btn_NextTrial.Click += new System.EventHandler(this.NextTrialButton_Click);
             // 
             // label4
             // 
@@ -473,7 +509,6 @@
             this.txt_Category.Name = "txt_Category";
             this.txt_Category.Size = new System.Drawing.Size(135, 20);
             this.txt_Category.TabIndex = 16;
-            this.txt_Category.TextChanged += new System.EventHandler(this.txt_Category_TextChanged);
             // 
             // txt_Description
             // 
@@ -506,7 +541,7 @@
             // box_Image
             // 
             this.box_Image.Controls.Add(this.box_PictureArea);
-            this.box_Image.Location = new System.Drawing.Point(5, 9);
+            this.box_Image.Location = new System.Drawing.Point(6, 9);
             this.box_Image.Name = "box_Image";
             this.box_Image.Size = new System.Drawing.Size(724, 692);
             this.box_Image.TabIndex = 21;
@@ -528,57 +563,7 @@
             // 
             this.TestTime.Tick += new System.EventHandler(this.TestTime_Tick);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // TesSet
-            // 
-            this.TesSet.Controls.Add(this.TestSetC);
-            this.TesSet.Controls.Add(this.TestSetB);
-            this.TesSet.Controls.Add(this.TestSetA);
-            this.TesSet.Location = new System.Drawing.Point(4, 317);
-            this.TesSet.Name = "TesSet";
-            this.TesSet.Size = new System.Drawing.Size(225, 49);
-            this.TesSet.TabIndex = 21;
-            this.TesSet.TabStop = false;
-            this.TesSet.Text = "Test set";
-            // 
-            // TestSetA
-            // 
-            this.TestSetA.AutoSize = true;
-            this.TestSetA.Location = new System.Drawing.Point(8, 19);
-            this.TestSetA.Name = "TestSetA";
-            this.TestSetA.Size = new System.Drawing.Size(56, 17);
-            this.TestSetA.TabIndex = 0;
-            this.TestSetA.TabStop = true;
-            this.TestSetA.Text = "Test A";
-            this.TestSetA.UseVisualStyleBackColor = true;
-            // 
-            // TestSetB
-            // 
-            this.TestSetB.AutoSize = true;
-            this.TestSetB.Location = new System.Drawing.Point(84, 19);
-            this.TestSetB.Name = "TestSetB";
-            this.TestSetB.Size = new System.Drawing.Size(56, 17);
-            this.TestSetB.TabIndex = 1;
-            this.TestSetB.TabStop = true;
-            this.TestSetB.Text = "Test B";
-            this.TestSetB.UseVisualStyleBackColor = true;
-            // 
-            // TestSetC
-            // 
-            this.TestSetC.AutoSize = true;
-            this.TestSetC.Location = new System.Drawing.Point(165, 19);
-            this.TestSetC.Name = "TestSetC";
-            this.TestSetC.Size = new System.Drawing.Size(56, 17);
-            this.TestSetC.TabIndex = 2;
-            this.TestSetC.TabStop = true;
-            this.TestSetC.Text = "Test C";
-            this.TestSetC.UseVisualStyleBackColor = true;
-            // 
-            // wnd_MainWindow
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -588,16 +573,19 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "wnd_MainWindow";
+            this.Name = "MainWindow";
             this.Text = "Borimeter";
             this.lay_MainLayout.ResumeLayout(false);
             this.pnl_MainControl.ResumeLayout(false);
             this.box_Controls.ResumeLayout(false);
             this.pnl_PersonalInfo.ResumeLayout(false);
+            this.Studies.ResumeLayout(false);
+            this.Studies.PerformLayout();
+            this.TestSet.ResumeLayout(false);
+            this.TestSet.PerformLayout();
             this.Information.ResumeLayout(false);
-            this.box_PersonalInfo.ResumeLayout(false);
-            this.box_PersonalInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Year)).EndInit();
+            this.PersonalInfo.ResumeLayout(false);
+            this.PersonalInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Age)).EndInit();
             this.pnl_PictureCtrl.ResumeLayout(false);
             this.box_TestControls.ResumeLayout(false);
@@ -605,8 +593,6 @@
             this.pnl_PictureArea.ResumeLayout(false);
             this.box_Image.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.box_PictureArea)).EndInit();
-            this.TesSet.ResumeLayout(false);
-            this.TesSet.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -628,21 +614,11 @@
         private System.Windows.Forms.TextBox txt_Name;
         private System.Windows.Forms.Label lbl_Name;
         private System.Windows.Forms.Label lbl_Gender;
-        private System.Windows.Forms.RadioButton rb_Female;
-        private System.Windows.Forms.RadioButton rb_Male;
         private System.Windows.Forms.NumericUpDown num_Age;
         private System.Windows.Forms.Label lbl_Age;
-        private System.Windows.Forms.TextBox txt_University;
-        private System.Windows.Forms.Label lbl_University;
-        private System.Windows.Forms.ComboBox cmb_Degree;
-        private System.Windows.Forms.TextBox txt_Specialization;
-        private System.Windows.Forms.NumericUpDown num_Year;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_Description;
-        private System.Windows.Forms.GroupBox box_PersonalInfo;
+        private System.Windows.Forms.GroupBox PersonalInfo;
         private System.Windows.Forms.Button btn_GotIt;
         private System.Windows.Forms.Button btn_Complete;
         private System.Windows.Forms.GroupBox box_Controls;
@@ -654,11 +630,19 @@
         private System.Windows.Forms.GroupBox Information;
         private System.Windows.Forms.Timer TestTime;
         private System.Windows.Forms.RichTextBox InfoTextBox;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.GroupBox TesSet;
-        private System.Windows.Forms.RadioButton TestSetC;
-        private System.Windows.Forms.RadioButton TestSetB;
-        private System.Windows.Forms.RadioButton TestSetA;
+        private System.Windows.Forms.GroupBox TestSet;
+        private System.Windows.Forms.GroupBox Studies;
+        private System.Windows.Forms.ComboBox cmb_Year;
+        private System.Windows.Forms.Label lbl_Year;
+        private System.Windows.Forms.Label lbl_Degree;
+        private System.Windows.Forms.ComboBox cmb_Degree;
+        private System.Windows.Forms.Label lbl_Speciality;
+        private System.Windows.Forms.TextBox txt_Speciality;
+        private System.Windows.Forms.Label lbl_University;
+        private System.Windows.Forms.TextBox txt_University;
+        private System.Windows.Forms.ComboBox cmb_Gender;
+        private System.Windows.Forms.Label lbl_TestSet;
+        private System.Windows.Forms.ComboBox cmb_TestSet;
     }
 }
 
