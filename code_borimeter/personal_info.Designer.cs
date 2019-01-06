@@ -38,9 +38,7 @@
             this.btn_Submit = new System.Windows.Forms.Button();
             this.pnl_PersonalInfo = new System.Windows.Forms.Panel();
             this.Information = new System.Windows.Forms.GroupBox();
-            this.box_Progress = new System.Windows.Forms.GroupBox();
-            this.chk_Progress = new System.Windows.Forms.CheckBox();
-            this.prg_ProgressBar = new System.Windows.Forms.ProgressBar();
+            this.InfoTextBox = new System.Windows.Forms.RichTextBox();
             this.box_PersonalInfo = new System.Windows.Forms.GroupBox();
             this.lbl_Name = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -73,11 +71,16 @@
             this.box_Image = new System.Windows.Forms.GroupBox();
             this.box_PictureArea = new System.Windows.Forms.PictureBox();
             this.TestTime = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TesSet = new System.Windows.Forms.GroupBox();
+            this.TestSetA = new System.Windows.Forms.RadioButton();
+            this.TestSetB = new System.Windows.Forms.RadioButton();
+            this.TestSetC = new System.Windows.Forms.RadioButton();
             this.lay_MainLayout.SuspendLayout();
             this.pnl_MainControl.SuspendLayout();
             this.box_Controls.SuspendLayout();
             this.pnl_PersonalInfo.SuspendLayout();
-            this.box_Progress.SuspendLayout();
+            this.Information.SuspendLayout();
             this.box_PersonalInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Year)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Age)).BeginInit();
@@ -86,6 +89,7 @@
             this.pnl_PictureArea.SuspendLayout();
             this.box_Image.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box_PictureArea)).BeginInit();
+            this.TesSet.SuspendLayout();
             this.SuspendLayout();
             // 
             // lay_MainLayout
@@ -163,8 +167,8 @@
             // 
             // pnl_PersonalInfo
             // 
+            this.pnl_PersonalInfo.Controls.Add(this.TesSet);
             this.pnl_PersonalInfo.Controls.Add(this.Information);
-            this.pnl_PersonalInfo.Controls.Add(this.box_Progress);
             this.pnl_PersonalInfo.Controls.Add(this.box_PersonalInfo);
             this.pnl_PersonalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PersonalInfo.Location = new System.Drawing.Point(3, 3);
@@ -174,41 +178,25 @@
             // 
             // Information
             // 
-            this.Information.Location = new System.Drawing.Point(4, 431);
+            this.Information.Controls.Add(this.InfoTextBox);
+            this.Information.Location = new System.Drawing.Point(4, 372);
             this.Information.Name = "Information";
-            this.Information.Size = new System.Drawing.Size(225, 270);
+            this.Information.Size = new System.Drawing.Size(225, 329);
             this.Information.TabIndex = 20;
             this.Information.TabStop = false;
             this.Information.Text = "Information";
             // 
-            // box_Progress
+            // InfoTextBox
             // 
-            this.box_Progress.Controls.Add(this.chk_Progress);
-            this.box_Progress.Controls.Add(this.prg_ProgressBar);
-            this.box_Progress.Location = new System.Drawing.Point(3, 349);
-            this.box_Progress.Name = "box_Progress";
-            this.box_Progress.Size = new System.Drawing.Size(226, 75);
-            this.box_Progress.TabIndex = 19;
-            this.box_Progress.TabStop = false;
-            this.box_Progress.Text = "Progress";
-            // 
-            // chk_Progress
-            // 
-            this.chk_Progress.AutoSize = true;
-            this.chk_Progress.Location = new System.Drawing.Point(5, 19);
-            this.chk_Progress.Name = "chk_Progress";
-            this.chk_Progress.Size = new System.Drawing.Size(96, 17);
-            this.chk_Progress.TabIndex = 10;
-            this.chk_Progress.Text = "Show progress";
-            this.chk_Progress.UseVisualStyleBackColor = true;
-            this.chk_Progress.CheckedChanged += new System.EventHandler(this.chk_Progress_CheckedChanged);
-            // 
-            // prg_ProgressBar
-            // 
-            this.prg_ProgressBar.Location = new System.Drawing.Point(6, 42);
-            this.prg_ProgressBar.Name = "prg_ProgressBar";
-            this.prg_ProgressBar.Size = new System.Drawing.Size(214, 23);
-            this.prg_ProgressBar.TabIndex = 2;
+            this.InfoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InfoTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.InfoTextBox.Location = new System.Drawing.Point(4, 20);
+            this.InfoTextBox.Name = "InfoTextBox";
+            this.InfoTextBox.ReadOnly = true;
+            this.InfoTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.InfoTextBox.Size = new System.Drawing.Size(216, 298);
+            this.InfoTextBox.TabIndex = 0;
+            this.InfoTextBox.Text = "";
             // 
             // box_PersonalInfo
             // 
@@ -232,7 +220,7 @@
             this.box_PersonalInfo.ForeColor = System.Drawing.SystemColors.ControlText;
             this.box_PersonalInfo.Location = new System.Drawing.Point(3, 9);
             this.box_PersonalInfo.Name = "box_PersonalInfo";
-            this.box_PersonalInfo.Size = new System.Drawing.Size(226, 334);
+            this.box_PersonalInfo.Size = new System.Drawing.Size(226, 301);
             this.box_PersonalInfo.TabIndex = 18;
             this.box_PersonalInfo.TabStop = false;
             this.box_PersonalInfo.Text = "Personal information";
@@ -301,6 +289,11 @@
             // num_Year
             // 
             this.num_Year.Location = new System.Drawing.Point(85, 272);
+            this.num_Year.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
             this.num_Year.Name = "num_Year";
             this.num_Year.Size = new System.Drawing.Size(136, 20);
             this.num_Year.TabIndex = 9;
@@ -369,6 +362,7 @@
             // 
             this.num_Age.Location = new System.Drawing.Point(85, 105);
             this.num_Age.Name = "num_Age";
+            this.num_Age.ReadOnly = true;
             this.num_Age.Size = new System.Drawing.Size(136, 20);
             this.num_Age.TabIndex = 5;
             // 
@@ -534,6 +528,56 @@
             // 
             this.TestTime.Tick += new System.EventHandler(this.TestTime_Tick);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // TesSet
+            // 
+            this.TesSet.Controls.Add(this.TestSetC);
+            this.TesSet.Controls.Add(this.TestSetB);
+            this.TesSet.Controls.Add(this.TestSetA);
+            this.TesSet.Location = new System.Drawing.Point(4, 317);
+            this.TesSet.Name = "TesSet";
+            this.TesSet.Size = new System.Drawing.Size(225, 49);
+            this.TesSet.TabIndex = 21;
+            this.TesSet.TabStop = false;
+            this.TesSet.Text = "Test set";
+            // 
+            // TestSetA
+            // 
+            this.TestSetA.AutoSize = true;
+            this.TestSetA.Location = new System.Drawing.Point(8, 19);
+            this.TestSetA.Name = "TestSetA";
+            this.TestSetA.Size = new System.Drawing.Size(56, 17);
+            this.TestSetA.TabIndex = 0;
+            this.TestSetA.TabStop = true;
+            this.TestSetA.Text = "Test A";
+            this.TestSetA.UseVisualStyleBackColor = true;
+            // 
+            // TestSetB
+            // 
+            this.TestSetB.AutoSize = true;
+            this.TestSetB.Location = new System.Drawing.Point(84, 19);
+            this.TestSetB.Name = "TestSetB";
+            this.TestSetB.Size = new System.Drawing.Size(56, 17);
+            this.TestSetB.TabIndex = 1;
+            this.TestSetB.TabStop = true;
+            this.TestSetB.Text = "Test B";
+            this.TestSetB.UseVisualStyleBackColor = true;
+            // 
+            // TestSetC
+            // 
+            this.TestSetC.AutoSize = true;
+            this.TestSetC.Location = new System.Drawing.Point(165, 19);
+            this.TestSetC.Name = "TestSetC";
+            this.TestSetC.Size = new System.Drawing.Size(56, 17);
+            this.TestSetC.TabIndex = 2;
+            this.TestSetC.TabStop = true;
+            this.TestSetC.Text = "Test C";
+            this.TestSetC.UseVisualStyleBackColor = true;
+            // 
             // wnd_MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,8 +594,7 @@
             this.pnl_MainControl.ResumeLayout(false);
             this.box_Controls.ResumeLayout(false);
             this.pnl_PersonalInfo.ResumeLayout(false);
-            this.box_Progress.ResumeLayout(false);
-            this.box_Progress.PerformLayout();
+            this.Information.ResumeLayout(false);
             this.box_PersonalInfo.ResumeLayout(false);
             this.box_PersonalInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Year)).EndInit();
@@ -562,6 +605,8 @@
             this.pnl_PictureArea.ResumeLayout(false);
             this.box_Image.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.box_PictureArea)).EndInit();
+            this.TesSet.ResumeLayout(false);
+            this.TesSet.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -573,7 +618,6 @@
         private System.Windows.Forms.TextBox txt_Category;
         private System.Windows.Forms.Button btn_NextPicture;
         private System.Windows.Forms.Button btn_NextTrial;
-        private System.Windows.Forms.ProgressBar prg_ProgressBar;
         private System.Windows.Forms.Panel pnl_MainControl;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_Submit;
@@ -591,7 +635,6 @@
         private System.Windows.Forms.TextBox txt_University;
         private System.Windows.Forms.Label lbl_University;
         private System.Windows.Forms.ComboBox cmb_Degree;
-        private System.Windows.Forms.CheckBox chk_Progress;
         private System.Windows.Forms.TextBox txt_Specialization;
         private System.Windows.Forms.NumericUpDown num_Year;
         private System.Windows.Forms.Label label2;
@@ -600,7 +643,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_Description;
         private System.Windows.Forms.GroupBox box_PersonalInfo;
-        private System.Windows.Forms.GroupBox box_Progress;
         private System.Windows.Forms.Button btn_GotIt;
         private System.Windows.Forms.Button btn_Complete;
         private System.Windows.Forms.GroupBox box_Controls;
@@ -611,7 +653,12 @@
         private System.Windows.Forms.PictureBox box_PictureArea;
         private System.Windows.Forms.GroupBox Information;
         private System.Windows.Forms.Timer TestTime;
-
+        private System.Windows.Forms.RichTextBox InfoTextBox;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.GroupBox TesSet;
+        private System.Windows.Forms.RadioButton TestSetC;
+        private System.Windows.Forms.RadioButton TestSetB;
+        private System.Windows.Forms.RadioButton TestSetA;
     }
 }
 

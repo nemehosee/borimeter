@@ -25,7 +25,7 @@ namespace Borimeter
 
         // Enable countdown
         Boolean EnableTimeOut = false;
-        int TimeOutCounter = 10;
+        int TimeOutCounter = Const.PicTimeOut;
 
         public wnd_MainWindow()
         {
@@ -34,7 +34,7 @@ namespace Borimeter
 
         private void lyo_MainTableLayout_Paint(object sender, PaintEventArgs e)
         {
-
+            InfoTextBox.AppendText("");
         }
 
         // Disable input fields after Submit button was clicked
@@ -46,16 +46,6 @@ namespace Borimeter
             btn_Submit.Enabled = false;
             // Disable Personal Information group box
             box_PersonalInfo.Enabled = false;
-            // If Progress bar is disabled
-            if (chk_Progress.Checked == false)
-            {
-                // Hide progress group box
-                box_Progress.Enabled = false;
-            }
-            else
-            {
-                chk_Progress.Enabled = false;
-            }
         }
 
         // Create user file and write personal information into it
@@ -87,14 +77,17 @@ namespace Borimeter
                 WriteToFile.WriteLine(Student.Spec.ToString());
                 WriteToFile.WriteLine(Student.Deg.ToString());
                 WriteToFile.WriteLine(Student.Year.ToString());
+                WriteToFile.WriteLine("--------- TEST RESULTS ---------");
             }
         }
 
         // Display a specific picture from a set
         private void DisplayImage(int Set, int Pic)
         {
+            // Calculate image name based on index
+            int PictName = Const.PicsPerSet - IdxImg + 1;
             // Calculate path to current picture
-            string s_Picture = @".\Pictures\" + IdxSet.ToString() + @"\" + IdxImg.ToString() + ".jpg";
+            string s_Picture = @".\Pictures\" + IdxSet.ToString() + @"\" + PictName.ToString() + ".png";
 
             // Set image display mode based on image size
             using (Image Picture = Image.FromFile(s_Picture))
@@ -115,8 +108,9 @@ namespace Borimeter
             box_PictureArea.Load(s_Picture);
             // Make picture area visible
             box_PictureArea.Visible = true;
-            // Enable time-out
-            EnableTimeOut = true;
+            // Reset diplay time-out
+            // Reset time-out counter
+            TimeOutCounter = Const.PicTimeOut;
         }
 
         // Submit button action
@@ -319,21 +313,14 @@ namespace Borimeter
         {
             // Increment time unit (sec)
             Time.IncTime();
-
-            // If picture display timeout is enabled
-            if (EnableTimeOut)
+            if (TimeOutCounter > 0)
             {
                 // If timeout has reached
-                if (TimeOutCounter == 0)
+                if (--TimeOutCounter == 0)
                 {
-                    // Disable time-out
-                    EnableTimeOut = false;
-                    // Reset time-out counter
-                    TimeOutCounter = 10;
                     // Hide picture area
                     box_PictureArea.Visible = false;
                 }
-                else TimeOutCounter--;
             }
         }
     }
@@ -431,10 +418,12 @@ namespace Borimeter
     public class Const
     {
         // Maximum number of pictures per set
-        public const int PicsPerSet = 5;
+        public const int PicsPerSet = 6;
         // Maximum number of sets
         // TODO: Correct value to 20 on final version
-        public const int NrOfSets = 3;
+        public const int NrOfSets = 18;
+        // Picture display timeout in hundreds of milliseconds
+        public const int PicTimeOut = 30;
     }
 
     // Test trial information
