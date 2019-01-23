@@ -34,21 +34,8 @@ namespace Borimeter
 
         }
 
-        // Disable input fields after Submit button was clicked
-        private void DisableInput()
-        {
-            // Enable test controls
-            btn_Start.Enabled = true;
-            // Disable Submit button
-            btn_Submit.Enabled = false;
-            // Disable Personal Information, Studies and Test Set group box
-            PersonalInfo.Enabled = false;
-            Studies.Enabled = false;
-            TestSet.Enabled = false;
-        }
-
         // Create user file and write personal information into it
-        private void CreateUserFile()
+        private void PrepareOutputFile()
         {
             // Unique file name
             string FileName;
@@ -105,17 +92,13 @@ namespace Borimeter
             box_PictureArea.Visible = true;
         }
 
-        // Submit button action
-        private void SubmitButton_Click(object sender, EventArgs e)
+        // Verifies that all input fields were filled in
+        private bool CheckInputFields()
         {
             bool PersonalInfoComplete = true;
             bool StudiesInfoComplete = true;
             bool TestSetChoosen = true;
 
-            string UserIdData;
-
-            // Clear notification area content
-            InfoTextBox.Clear();
             // Check personal information are filled in
             if (txt_Name.Text == "" || txt_Surname.Text == "" || cmb_Gender.Text == "" || num_Age.Value == 0)
             {
@@ -142,8 +125,19 @@ namespace Borimeter
                 InfoTextBox.AppendText(Environment.NewLine);
             }
 
+            return PersonalInfoComplete && StudiesInfoComplete && TestSetChoosen;
+        }
+
+        // Submit button action
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            string UserIdData;
+
+            // Clear notification area content
+            InfoTextBox.Clear();
+
             // If all information is complete
-            if (PersonalInfoComplete && StudiesInfoComplete && TestSetChoosen)
+            if (CheckInputFields())
             {
                 // Populate information about the test subject
                 TestSubject.Name    = txt_Name.Text;
@@ -162,16 +156,21 @@ namespace Borimeter
                 TestData.DateTime   = DateTime.Now.ToString();
                 // Get all directories of the test sets
                 TestSetPathList = Directory.GetDirectories(@"Pictures\" + TestData.TestSet + "\\");
-                // Grey-out User information fields
-                DisableInput();
+                // Enable test controls
+                btn_Start.Enabled = true;
+                // Disable Submit button
+                btn_Submit.Enabled = false;
+                // Disable Personal Information, Studies and Test Set group box
+                PersonalInfo.Enabled = false;
+                Studies.Enabled = false;
+                TestSet.Enabled = false;
                 // Create user file
-                CreateUserFile();
+                PrepareOutputFile();
                 // Clear notification area
                 InfoTextBox.Clear();
                 // Display notification
                 InfoTextBox.AppendText(Environment.NewLine + "Please press the Start button to enter the Demo trial.");
                 InfoTextBox.AppendText(Environment.NewLine);
-                InfoTextBox.AppendText(Environment.NewLine + "Guiding information will be shown here during the Demo.");
             } 
         }
 
@@ -189,12 +188,6 @@ namespace Borimeter
             IdxSet = 0;
             // Display current picture
             DisplayImage(IdxSet, IdxImg);
-            // Display notification
-            InfoTextBox.AppendText(Environment.NewLine + "To see a less distorted phase of the image press Next Picture.");
-            InfoTextBox.AppendText(Environment.NewLine);
-            InfoTextBox.AppendText(Environment.NewLine + "When the object was identified press the Got It button, fill in Name and Category and press Submit.");
-            InfoTextBox.AppendText(Environment.NewLine);
-            InfoTextBox.AppendText(Environment.NewLine + "Press the Next Trial button to get to the next set of distorted images.");
         }
 
         // Next Picture button action

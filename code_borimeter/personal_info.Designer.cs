@@ -104,9 +104,9 @@
             this.lay_MainLayout.Name = "lay_MainLayout";
             this.lay_MainLayout.RowCount = 2;
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.lay_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.lay_MainLayout.Size = new System.Drawing.Size(980, 787);
+            this.lay_MainLayout.Size = new System.Drawing.Size(980, 657);
             this.lay_MainLayout.TabIndex = 11;
             this.lay_MainLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.MainTableLayout_Paint);
             // 
@@ -114,9 +114,9 @@
             // 
             this.pnl_MainControl.Controls.Add(this.box_Controls);
             this.pnl_MainControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_MainControl.Location = new System.Drawing.Point(3, 719);
+            this.pnl_MainControl.Location = new System.Drawing.Point(3, 590);
             this.pnl_MainControl.Name = "pnl_MainControl";
-            this.pnl_MainControl.Size = new System.Drawing.Size(234, 65);
+            this.pnl_MainControl.Size = new System.Drawing.Size(234, 64);
             this.pnl_MainControl.TabIndex = 1;
             // 
             // box_Controls
@@ -172,7 +172,7 @@
             this.pnl_PersonalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PersonalInfo.Location = new System.Drawing.Point(3, 3);
             this.pnl_PersonalInfo.Name = "pnl_PersonalInfo";
-            this.pnl_PersonalInfo.Size = new System.Drawing.Size(234, 710);
+            this.pnl_PersonalInfo.Size = new System.Drawing.Size(234, 581);
             this.pnl_PersonalInfo.TabIndex = 0;
             // 
             // Studies
@@ -310,7 +310,7 @@
             this.Information.Controls.Add(this.InfoTextBox);
             this.Information.Location = new System.Drawing.Point(3, 405);
             this.Information.Name = "Information";
-            this.Information.Size = new System.Drawing.Size(226, 296);
+            this.Information.Size = new System.Drawing.Size(226, 169);
             this.Information.TabIndex = 0;
             this.Information.TabStop = false;
             this.Information.Text = "Information";
@@ -323,7 +323,7 @@
             this.InfoTextBox.Name = "InfoTextBox";
             this.InfoTextBox.ReadOnly = true;
             this.InfoTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.InfoTextBox.Size = new System.Drawing.Size(216, 270);
+            this.InfoTextBox.Size = new System.Drawing.Size(216, 138);
             this.InfoTextBox.TabIndex = 0;
             this.InfoTextBox.Text = "";
             // 
@@ -423,9 +423,9 @@
             // 
             this.pnl_PictureCtrl.Controls.Add(this.box_TestControls);
             this.pnl_PictureCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_PictureCtrl.Location = new System.Drawing.Point(243, 719);
+            this.pnl_PictureCtrl.Location = new System.Drawing.Point(243, 590);
             this.pnl_PictureCtrl.Name = "pnl_PictureCtrl";
-            this.pnl_PictureCtrl.Size = new System.Drawing.Size(734, 65);
+            this.pnl_PictureCtrl.Size = new System.Drawing.Size(734, 64);
             this.pnl_PictureCtrl.TabIndex = 2;
             // 
             // box_TestControls
@@ -535,7 +535,7 @@
             this.pnl_PictureArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_PictureArea.Location = new System.Drawing.Point(243, 3);
             this.pnl_PictureArea.Name = "pnl_PictureArea";
-            this.pnl_PictureArea.Size = new System.Drawing.Size(734, 710);
+            this.pnl_PictureArea.Size = new System.Drawing.Size(734, 581);
             this.pnl_PictureArea.TabIndex = 3;
             // 
             // box_Image
@@ -543,7 +543,7 @@
             this.box_Image.Controls.Add(this.box_PictureArea);
             this.box_Image.Location = new System.Drawing.Point(6, 9);
             this.box_Image.Name = "box_Image";
-            this.box_Image.Size = new System.Drawing.Size(724, 692);
+            this.box_Image.Size = new System.Drawing.Size(724, 565);
             this.box_Image.TabIndex = 21;
             this.box_Image.TabStop = false;
             this.box_Image.Text = "Image";
@@ -554,7 +554,7 @@
             this.box_PictureArea.InitialImage = null;
             this.box_PictureArea.Location = new System.Drawing.Point(12, 19);
             this.box_PictureArea.Name = "box_PictureArea";
-            this.box_PictureArea.Size = new System.Drawing.Size(700, 662);
+            this.box_PictureArea.Size = new System.Drawing.Size(700, 535);
             this.box_PictureArea.TabIndex = 0;
             this.box_PictureArea.TabStop = false;
             this.box_PictureArea.Visible = false;
@@ -565,15 +565,15 @@
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 787);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(980, 657);
             this.Controls.Add(this.lay_MainLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Borimeter";
             this.lay_MainLayout.ResumeLayout(false);
             this.pnl_MainControl.ResumeLayout(false);
