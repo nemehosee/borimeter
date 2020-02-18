@@ -15,6 +15,7 @@ namespace csoszimeter
         public csoszimeter()
         {
             InitializeComponent();
+            //dfd
         }
     }
 }
